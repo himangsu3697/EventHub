@@ -5,7 +5,7 @@
             <%=event.title%>
         </h2>
         <img src="<%=event.image%>" class="card-img-top img">
-        <p><i>Organized by </i><b><%=event.owner.Username%></b></p>
+        <p><i>Organized by </i><b><%=event.owner.username%></b></p>
         <div class="card-body">
             <p class="card-text">
                <b><i>Description : </i></b><%=event.description%>
@@ -25,7 +25,7 @@
                 <b><i>Capacity : </i></b><%=event.capacity%>
             </li>
         </ul>
-        <% if(User && User._id.equals(event.owner._id)) {%>
+        <% if(user && user._id.equals(event.owner._id)) {%>
             <div class="card-body">
                 <form action="/events/<%=event._id%>/edit" method="get">
                      <button class="card-link btn btn-primary">Edit</button>
@@ -35,10 +35,10 @@
                 </form>
             </div>
         <% } %>
-        <% if(User) { %>
-            <% if(!User._id.equals(event.owner._id)) {%>
+        <% if(user) { %>
+            <% if(!user._id.equals(event.owner._id)) {%>
             <div>
-               <a href="/events/bookings/<%=event._id%>/<%=User._id%>" class="btn btn-warning">Book Event</a>
+               <a href="/events/bookings/<%=event._id%>/<%=user._id%>" class="btn btn-warning">Book Event</a>
             </div>
         <% } %>
         <% } %>

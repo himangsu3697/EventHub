@@ -72,8 +72,8 @@
         order_id: order.id, // Use the order_id from the response
         callback_url: '/payment-success', // Your success URL
         prefill: {
-          name: "<%=User.Username%>",
-          email: "<%=User.email%>",
+          name: "<%=user.username%>",
+          email: "<%=user.email%>",
           contact: 'xxxxxx3697'
         },
         theme: {

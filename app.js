@@ -13,9 +13,9 @@ const passport = require("passport");
 const localStratige = require("passport-local");
 const flash = require("connect-flash");
 const eventRouter = require("./routes/event.js");
-const UserRouter = require("./routes/user.js");
+const userRouter = require("./routes/user.js");
 const bookingRouter = require("./routes/booking.js");
-const User = require("./models/User.js");
+const User = require("./models/user.js");
 const Booking = require("./models/booking.js");
 const Razorpay = require("razorpay");
 const fs = require('fs');
@@ -70,8 +70,8 @@ app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStratige(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeuser(User.serializeuser());
+passport.deserializeuser(User.deserializeuser());
 
 //database setup
 async function main() {
@@ -88,7 +88,7 @@ main().then(() => {
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.User = req.User;
+    res.locals.user = req.user;
     next();
 });
 
@@ -220,11 +220,11 @@ app.post('/verify-payment', wrapAsync(async (req, res) => {
 //payment success route
 app.get("/payment-success", wrapAsync(async(req, res) => {
     const {uid, eid} =  req.session;
-    const newBooking = new Booking({User : uid, event : eid});
-    const User = await User.findById(uid);
-    User.bookings.push(newBooking);
+    const newBooking = new Booking({user : uid, event : eid});
+    const user = await User.findById(uid);
+    user.bookings.push(newBooking);
     await newBooking.save();
-    await User.save();
+    await user.save();
     req.flash("success", "Event Booked Successfully");
     res.redirect("/events");
 }));
@@ -232,7 +232,7 @@ app.get("/payment-success", wrapAsync(async(req, res) => {
 //router middlewares
 app.use("/events/bookings", bookingRouter);
 app.use("/events", eventRouter);
-app.use("/events/Users", UserRouter);
+app.use("/events/users", userRouter);
 
 //route for request send in invalide path
 app.use((req, res) => {

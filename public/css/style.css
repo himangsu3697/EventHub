@@ -1811,7 +1811,7 @@ body {
     }
 }
 
-/* Reduce motion for Users who prefer it */
+/* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
 
     *,

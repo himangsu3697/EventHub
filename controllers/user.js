@@ -1,39 +1,39 @@
 const CustomError = require("../utils/customError.js");
-const User = require("../models/User.js");
+const User = require("../models/user.js");
 
 //get sigup form controller 
 module.exports.getSignupForm = (req, res) => {
-    res.render("./User/signup.ejs");
+    res.render("./user/signup.ejs");
 }
 
-//create new User controller
-module.exports.createUser = async(req, res) => {
-    if(!req.body.User) {
-        throw new CustomError(400,"Send valid data for User");
+//create new user controller
+module.exports.createuser = async(req, res) => {
+    if(!req.body.user) {
+        throw new CustomError(400,"Send valid data for user");
     }
-    const {Username, password, email} = req.body.User;
-    const newUser = new User({
+    const {username, password, email} = req.body.user;
+    const newuser = new User({
         email : email,
-        Username : Username,
+        username : username,
     });
-    await User.register(newUser,password);
+    await User.register(newuser,password);
     req.flash("success", "Signup Successfully");
-    res.redirect("/events/Users/login");
+    res.redirect("/events/users/login");
 }
 
 //get login form controller
 module.exports.getLoginForm =  (req, res) => {
-    res.render("./User/login.ejs");
+    res.render("./user/login.ejs");
 }
 
-//login User controller
-module.exports.loginUser = (req, res) => {
+//login user controller
+module.exports.loginuser = (req, res) => {
         req.flash("success", "Login Successfully");
         res.redirect("/events");
 }
 
-//logout User controller
-module.exports.logoutUser = (req, res, next) => {
+//logout user controller
+module.exports.logoutuser = (req, res, next) => {
     req.logOut((err) => {
         if(err) {
             next(err);

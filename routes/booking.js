@@ -7,7 +7,7 @@ const { getPaymentOption, showAllBookings, showBooking, deleteBooking } = requir
 //get payment option route
 router.get("/:eid/:uid" ,isLoggedin ,wrapAsync(getPaymentOption));
 
-//route to show all booked events of the User
+//route to show all booked events of the user
 router.get("/showAllBookings" ,isLoggedin ,wrapAsync(showAllBookings));
 
 //route to show an individuaal event

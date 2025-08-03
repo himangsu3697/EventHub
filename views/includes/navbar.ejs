@@ -15,7 +15,7 @@
             <ul class="navbar-nav ms-auto me-4">
                  <li class="nav-item">
                     <a class="nav-link" href="/events/bookings/showAllBookings">
-                        <i class="fa-solid fa-User"></i>
+                        <i class="fa-solid fa-user"></i>
                         My Bookings
                     </a>
                 </li>
@@ -42,18 +42,18 @@
             <div class="auth-buttons d-flex align-items-center">
                 <!-- Guest State (Login/Signup) -->
                 <div id="guestState">
-                    <% if(!User) { %>
-                        <a class="btn btn-custom btn-login" href="/events/Users/login">
+                    <% if(!user) { %>
+                        <a class="btn btn-custom btn-login" href="/events/users/login">
                             <i class="fas fa-sign-in-alt"></i>
                             Login
                         </a>
-                        <a class="btn btn-custom btn-signup" href="/events/Users/signup">
-                            <i class="fas fa-User-plus"></i>
+                        <a class="btn btn-custom btn-signup" href="/events/users/signup">
+                            <i class="fas fa-user-plus"></i>
                             Sign Up
                         </a>
                     <% } %>
-                    <% if(User) { %>
-                        <a class="btn btn-custom btn-logout me-3" href="/events/Users/logout">
+                    <% if(user) { %>
+                        <a class="btn btn-custom btn-logout me-3" href="/events/users/logout">
                             <i class="fas fa-sign-out-alt"></i>
                             Logout
                         </a>

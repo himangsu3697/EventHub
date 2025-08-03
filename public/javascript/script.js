@@ -180,7 +180,7 @@ function showValidationMessage(input, message, isValid) {
 }
 
 // Responsive keyboard handling for mobile
-if (/iPhone|iPad|iPod|Android/i.test(navigator.UserAgent)) {
+if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
     let originalHeight = window.innerHeight;
 
     window.addEventListener('resize', function () {

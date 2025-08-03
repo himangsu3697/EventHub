@@ -34,7 +34,7 @@ module.exports.createEvent = async (req, res) => {
         throw new CustomError(400,"Send valid data for the event");
     }
     const url = req.file.path;
-    const newEvent = new Event({...req.body.event,owner : req.User._id}); 
+    const newEvent = new Event({...req.body.event,owner : req.user._id}); 
     newEvent.image = url;
     await newEvent.save();
     req.flash("success", "Event Created");
