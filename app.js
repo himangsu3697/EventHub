@@ -70,8 +70,8 @@ app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStratige(User.authenticate()));
-passport.serializeuser(User.serializeuser());
-passport.deserializeuser(User.deserializeuser());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //database setup
 async function main() {
