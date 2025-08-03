@@ -1,0 +1,119 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<style>
+    .paymentBox {
+      margin-top: 13rem;
+      height: 100vh;
+    }
+    input {
+      padding : 0.3rem 0.3rem 0.6rem 0.5rem;
+      background-color: antiquewhite;
+      color: black;
+      border: none;
+      border-radius: 0.5rem;
+    }
+    @media(max-width : 768px) {
+      button {
+        margin-left: 5rem;
+        margin-top: 2rem;
+      }
+      form {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="row">
+      <div class="paymentBox col-10 col-md-8 col-lg-6 offset-2 offset-lg-4">
+      <h1><i>Conform Payment</i></h1>
+      <form id="payment-form">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" value="<%=event.price%>" required disabled>
+        <button type="button" onclick="payNow()" class="btn btn-success" style="cursor: pointer;">Pay Now</button><br><br>
+        <i><b>Note :</b> Once you conform payment you will not able to cancle the booking</i><br>
+        <i>and no refund will be provided so continue carefully.</i>
+      </form>
+    </div>
+    </div>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+ <script>
+  async function payNow() {
+    try {
+      const amountInput = document.getElementById('amount').value;
+      const amount = parseFloat(amountInput) * 100; // Convert to paise
+      if (!amount || amount <= 0) {
+        alert('Please enter a valid amount');
+        return;
+      }
+      // Create order by calling the server endpoint
+      const response = await fetch('/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          amount: amount, 
+          currency: 'INR', 
+          receipt: 'receipt#1', 
+          notes: {} 
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
+      const order = await response.json();
+      // Open Razorpay Checkout
+      const options = {
+        key: "<%=process.env.RP_KEY%>", // Replace with your Razorpay key_id
+        amount: order.amount, // Use the amount from the order response
+        currency: 'INR',
+        name: 'Event Hub',
+        description: 'Event Booking',
+        order_id: order.id, // Use the order_id from the response
+        callback_url: '/payment-success', // Your success URL
+        prefill: {
+          name: "<%=User.Username%>",
+          email: "<%=User.email%>",
+          contact: 'xxxxxx3697'
+        },
+        theme: {
+          color: '#F37254'
+        },
+        handler: function (response) {
+          fetch('/verify-payment', {
+            credentials: 'include',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id, 
+              razorpay_payment_id: response.razorpay_payment_id, 
+              razorpay_signature: response.razorpay_signature
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if(data.status === 'ok') { 
+               window.location.href = "/payment-success";
+            } else { 
+              alert("payment filed");
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error); 
+            alert('Error verifying payment');
+          });
+        }
+      };
+      
+      const rzp = new Razorpay(options);
+      rzp.open();
+      
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Error processing payment: ' + error.message);
+    }
+  }
+</script>
+</body>

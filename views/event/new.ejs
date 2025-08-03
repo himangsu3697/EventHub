@@ -1,0 +1,51 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+ <div class="form-container offset-3">
+        <h1 class="form-title">Create New Event</h1>
+        <form id="eventForm" class="form-grid" action="/events" method="post" enctype="multipart/form-data">
+            <div class="input-group floating-label">
+                <input type="text" id="title" name="event[title]" placeholder=" " required>
+                <label for="title"><span class="form-icon">🎯</span>Event Title</label>
+            </div>
+
+            <div class="input-group floating-label">
+                <textarea id="description" name="event[description]" rows="1" placeholder=" " required></textarea>
+                <label for="description"><span class="form-icon">📝</span>Description</label>
+            </div>
+
+            <div class="input-group">
+                <label for="image"><span class="form-icon">🖼️</span>Uploade Event Image</label>
+                <input type="file" id="image" name="event[image]">
+            </div>
+
+            <div class="two-column">
+                <div class="input-group floating-label">
+                    <input type="text" id="price" name="event[price]" placeholder=" " required>
+                    <label for="price"><span class="form-icon">💰</span>Price ($)</label>
+                </div>
+
+                <div class="input-group floating-label">
+                    <input type="number" id="capacity" name="event[capacity]" placeholder=" " min="1" required>
+                    <label for="capacity"><span class="form-icon">👥</span>Capacity</label>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="input-group floating-label">
+                    <input type="datetime-local" id="date" name="event[date]"  required>
+                    <label for="date"><span class="form-icon">📅</span>Event Date & Time</label>
+                </div>
+
+                <div class="input-group floating-label">
+                    <input type="text" id="venue" name="event[venue]" placeholder=" " required>
+                    <label for="venue"><span class="form-icon">📍</span>Venue</label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span class="form-icon">🚀</span>
+                Create Event
+            </button>
+        </form>
+    </div>
+</body>

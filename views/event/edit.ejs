@@ -1,0 +1,53 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+    <body>
+        <div class="form-container offset-3">
+            <h1 class="form-title">Edit Event</h1>
+            <form id="eventForm" class="form-grid" action="/events/<%=event._id%>?_method=PUT" method="post" enctype="multipart/form-data">
+                <div class="input-group floating-label">
+                    <input type="text" id="title" name="event[title]" value="<%=event.title%>" required>
+                    <label for="event[title]"><span class="form-icon">🎯</span>Event Title</label>
+                </div>
+
+                <div class="input-group floating-label">
+                    <textarea id="description" name="event[description]" rows="1" required><%=event.description%></textarea>
+                    <label for="event[description]"><span class="form-icon">📝</span>Description</label>
+                </div>
+
+                <div class="input-group">
+                    <label for="image"><span class="form-icon">🖼️</span>Uploade Event Image</label>
+                    <input type="file" id="image" name="event[image]">
+                </div>
+                
+                <div class="two-column">
+                    <div class="input-group floating-label">
+                        <input type="number" id="price" name="event[price]" value="<%=event.price%>"
+                            required>
+                        <label for="event[price]"><span class="form-icon">💰</span>Price ($)</label>
+                    </div>
+
+                    <div class="input-group floating-label">
+                        <input type="number" id="capacity" name="event[capacity]" min="1" value="<%=event.capacity%>" required>
+                        <label for="event[capacity]"><span class="form-icon">👥</span>Capacity</label>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="input-group floating-label">
+                        <input type="datetime-local" id="date" name="event[date]" value="<%=event.date.toISOString().slice(0, 16);%>" required>
+                        <label for="event[date]"><span class="form-icon">📅</span>Event Date & Time</label>
+                    </div>
+
+                    <div class="input-group floating-label">
+                        <input type="text" id="venue" name="event[venue]" value="<%=event.venue%>" required>
+                        <label for="event[venue]"><span class="form-icon">📍</span>Venue</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <span class="form-icon">🚀</span>
+                    Edit Event
+                </button>
+            </form>
+        </div>
+    </body>

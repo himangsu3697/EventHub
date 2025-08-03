@@ -1,0 +1,22 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body style="margin-bottom: 2rem;">
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container-fluid px-2">
+        <div class="row justify-content-center mx-0">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-11">
+                <div class="error-container text-center">
+                    <div class="error-card">
+                        <i class="fas fa-exclamation-triangle error-icon"></i>
+                        <div class="error-code"><%= status %></div>
+                        <h1 class="error-title"><%= message %></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

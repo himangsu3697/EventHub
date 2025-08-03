@@ -1,0 +1,19 @@
+<% layout("/layouts/boilerplate.ejs") %>
+    <body>
+        <div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                <% for(let event of events) { %>
+                    <a href="/events/bookings/<%=event._id%>">
+                    <div class="card col index-card">
+                        <img src="<%=event.image%>" class="card-img-top" style="height: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-text">
+                               <i><%=event.title%></i>
+                            </h5>
+                        </div>
+                    </div>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    </body>

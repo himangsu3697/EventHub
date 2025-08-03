@@ -1,0 +1,55 @@
+<% layout("/layouts/boilerplate.ejs") %>
+    <body>
+        <div class="row cont" style="margin-top: 2rem;">
+            <div class="col-lg-4 col-md-7 col-10 offset-lg-4 offset-md-2 offset-1 mt-5 mt-md-0" style="margin-bottom: 5.8rem;">
+                <div class="glass-card p-5">
+                    <div class="signup-header">
+                        <h1>SignUp</h1>
+                    </div>
+                    <form id="signupForm" action="/events/Users/signup" method="post">
+                        <div class="form-group">
+                            <div class="form-floating position-relative">
+                                <input type="text" class="form-control" id="User[Username]" name="User[Username]" placeholder="Full Name" required>
+                                <label for="User[Username]">Username</label>
+                                <i class="fas fa-User input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-floating position-relative">
+                                <input type="email" class="form-control" id="User[email]" name="User[email]" placeholder="Email Address"
+                                    required>
+                                <label for="User[email]">Email Address</label>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-floating position-relative">
+                                <input type="password" class="form-control" id="User[password]" name="User[password]" placeholder="Password"
+                                    required>
+                                <label for="User[password]">Password</label>
+                                <i class="fas fa-lock input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label text-white-50" for="terms">
+                                I agree to the <a href="#" class="text-info">Terms of Service</a> and <a href="#"
+                                    class="text-info">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn2-signup mb-3">
+                            <i class="fas fa-User-plus me-2"></i>Create Account
+                        </button>
+                    </form>
+                    <div class="footer2-links offset-lg-2 offset-1">
+                        Already have an account? <a href="/events/Users/login" class="fw-bold">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    </body>
