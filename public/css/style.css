@@ -1939,6 +1939,6 @@ input[type="password"] {
 
 @media(max-width : 768px) {
     .alert {
-        width: 60vw;
+        width: 75vw;
     }
 }

@@ -30,7 +30,7 @@ module.exports.showAllBookings = async(req, res) => {
 //show a individual booking controller
 module.exports.showBooking = async(req, res) => {
     const {id} = req.params;
-    const event = await Event.findById(id);
+    const event = await Event.findById(id).populate("owner");
     const booking = await Booking.findOne({user : req.user._id, event : id});
     if(!event) {
         req.flash("error", "No such event exist");
@@ -43,14 +43,13 @@ module.exports.showBooking = async(req, res) => {
 module.exports.deleteBooking = async(req, res) => {
     const {bid, uid} = req.params;
     const user = await User.findById(uid);
-    for(let i=0; i<user.bookings.length; i++) {
-        if(user.bookings[i]==bid) {
-            user.bookings.splice(i,1);
-            await user.save();
-            req.flash("success", "Booking Deleted Successfully");
-            return res.redirect("/events/bookings/showAllBookings");
-        }
-    }
+    user.bookings = user.bookings.filter((v) => {
+        return v!=bid;
+    });
+    await Booking.findByIdAndDelete(bid);
+    await user.save();
+    req.flash("success", "Booking Deleted Successfully");
+    res.redirect("/events/bookings/showAllBookings");
 }
 
 

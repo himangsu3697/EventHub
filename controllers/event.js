@@ -1,5 +1,6 @@
 const CustomError = require("../utils/customError.js");
 const Event = require("../models/event.js");
+const Booking = require("../models/booking.js");
 
 //show all events controller
 module.exports.showAllEvents = async (req, res) => {
@@ -68,6 +69,7 @@ module.exports.updateEvent = async (req, res) => {
 module.exports.deleteEvent = async (req, res) => {
     const {id} = req.params;
     await Event.findByIdAndDelete(id);
+    await Booking.deleteMany({event : id});
     req.flash("success", "Event Deleted");
     res.redirect("/events");
 }
